@@ -3,12 +3,31 @@
 <head>
     <title></title>
     <script type="text/javascript">
-        function LinkedList(){
+        function LinkedList() {
+
             //make our head, set it to null
+            this.head = null;
+
             //make our tail, set it to null
-            this.add = function(value){ //make our add method for the linkedlist
+            this.tail = null;
+
+            this.add = function (value) { //make our add method for the linkedlist
+
                 //make a new linkedlist node
+                const node = new LinkedListNode(value);
+
                 //if the head is null
+                if (this.head === null) {
+                    this.head = this.current = node;
+                    this.tail = node;
+                    node.prev = node;
+                } else {
+                    node.prev = this.tail;
+                    this.tail.next = node;
+                    this.tail = node;
+                    this.tail.next = this.head;
+                    this.head.prev = this.tail;
+                }
                 //set the head to the node
                 //set the tail to the node
                 //set the node's prev to the node
@@ -18,14 +37,37 @@
                 //the tail points at the node
                 //the NEW tail's next points at the head
                 //the head's previous points at the NEW tail
+            };
+            this.walkList = function () {
+                const item = this.current;
+                this.current = this.current.next;
+            };
+            this.rewind = function () {
+                this.current = this.head;
+            };
+
+            function LinkedListNode(value) {
+                this.data = value;
+                this.next = null;
+                this.prev = null;
             }
         }
-        function LinkedListNode(value){
-            this.data = value;
-            this.next = null;
-            this.prev = null;
-        }
-        var list = new LinkedList();
+        const list = new LinkedList();
+
+        list.add('Dan');
+        list.add('Cody');
+        list.add('Matt');
+        list.add('Khanh');
+        list.add('Cory');
+        list.add('Kevin');
+
+        console.log(list.walkList());
+        console.log(list.walkList());
+        console.log(list.walkList());
+        console.log(list.walkList());
+        console.log(list.walkList());
+        console.log(list.walkList());
+
     </script>
 </head>
 <body>
